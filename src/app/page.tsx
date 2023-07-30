@@ -42,7 +42,7 @@ interface StatisticsData {
 
 
 const calculateRevenue = async (unibotAmount: number) => {
-  const res = await fetch(`http://localhost:3000/api/calculate/${unibotAmount}`, {
+  const res = await fetch(`/api/calculate/${unibotAmount}`, {
     cache: 'no-store',
   });
   const { data }: ApiResponse = await res.json();
@@ -50,7 +50,7 @@ const calculateRevenue = async (unibotAmount: number) => {
 };
 
 const getData = async (): Promise<StatisticsData> => {
-  const res = await fetch('http://localhost:3000/api/getData', {
+  const res = await fetch('/api/getData', {
     cache: 'no-store',
   });
   const { data }: { data: StatisticsData } = await res.json();

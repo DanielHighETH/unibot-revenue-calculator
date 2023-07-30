@@ -10,7 +10,7 @@ export async function GET(request: Request) {
   } )
   const duneData = await duneRes.json()
 
-  const pricesRes = await fetch(`http://localhost:3000/api/getPrice`, {
+  const pricesRes = await fetch(`/api/getPrice`, {
     cache: 'no-store',
   })
   const pricesData = await pricesRes.json()

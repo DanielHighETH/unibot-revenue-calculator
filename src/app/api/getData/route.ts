@@ -9,9 +9,8 @@ export async function GET() {
       cache: 'no-store',
     })
     const duneData = await duneRes.json()
-    
 
-    await fetch(`http://localhost:3000/api/savePrice`, {
+    await fetch(`/api/savePrice`, {
       cache: 'no-store',
     })
 
@@ -22,6 +21,7 @@ export async function GET() {
     console.log(pricesData)
     const unibotPrice = pricesData.data.unibotPrice
     const ethereumPrice = pricesData.data.ethereumPrice
+
 
     const data = {
       annualizedCombinedAPY: numeral(duneData.result.rows[0].annualizedCombinedAPY).format('0,0.00'),
