@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 
+
 interface Calculation {
   usd: number;
   eth: number;
@@ -57,8 +58,10 @@ const getData = async (): Promise<StatisticsData> => {
   return data;
 };
 
+
+
 export default function Home() {
-  const [unibotAmount, setUnibotAmount] = useState(0);
+  const [unibotAmount, setUnibotAmount] = useState<number>(0);
   const [data, setData] = useState<ApiData>(initialData);
   const [statistics, setStatistics] = useState<StatisticsData | null>(null);
 

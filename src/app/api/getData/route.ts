@@ -2,6 +2,56 @@ import { NextResponse } from 'next/server'
 import numeral from 'numeral';
 require('dotenv').config()
 
+interface PricesData {
+  unibotPrice: number;
+  ethereumPrice: number;
+}
+
+let cachedPricesData: PricesData | null = null;
+let cachedPricesTimestamp: number | null = null;
+
+async function fetchPrices(): Promise<PricesData> {
+  try {
+    const unibotPriceRes = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=unibot&vs_currencies=usd', {
+      cache: 'no-store',
+    });
+    const unibotPriceData = await unibotPriceRes.json();
+    const unibotPrice = unibotPriceData.unibot.usd;
+
+    const ethereumPriceRes = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd', {
+      cache: 'no-store',
+    });
+    const ethereumPriceData = await ethereumPriceRes.json();
+    const ethereumPrice = ethereumPriceData.ethereum.usd;
+
+    const data: PricesData = {
+      unibotPrice: unibotPrice,
+      ethereumPrice: ethereumPrice
+    };
+
+    cachedPricesData = data;
+    cachedPricesTimestamp = new Date().getTime();
+
+    return data;
+
+  } catch (error) {
+    console.error(`Error: ${error}`);
+    throw error;
+  }
+}
+
+async function getPrices(): Promise<PricesData> {
+  const currentTime = new Date().getTime();
+  const fiveMinutes = 5 * 60 * 1000;
+  
+  if (!cachedPricesData || !cachedPricesTimestamp || (currentTime - cachedPricesTimestamp > fiveMinutes)) {
+    return await fetchPrices();
+  } else {
+    return cachedPricesData;
+  }
+}
+
+
 export async function GET() {
 
   try {
@@ -10,17 +60,9 @@ export async function GET() {
     })
     const duneData = await duneRes.json()
 
-    await fetch(`/api/savePrice`, {
-      cache: 'no-store',
-    })
-
-    const pricesRes = await fetch(`/api/getPrice`, {
-      cache: 'no-store',
-    })
-    const pricesData = await pricesRes.json()
-    console.log(pricesData)
-    const unibotPrice = pricesData.data.unibotPrice
-    const ethereumPrice = pricesData.data.ethereumPrice
+    const pricesData = await getPrices();
+    const unibotPrice = pricesData.unibotPrice;
+    const ethereumPrice = pricesData.ethereumPrice;
 
 
     const data = {
