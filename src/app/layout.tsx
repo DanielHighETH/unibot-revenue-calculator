@@ -19,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="mx-auto flex h-full min-h-screen max-w-6xl flex-col px-4 py-8 dark:bg-black dark:text-zinc-200 md:px-8">
+      <body className="mx-auto flex h-full min-h-screen max-w-6xl flex-col px-4 py-8 bg-black text-zinc-200 md:px-8">
       <Navbar /> 
         {children}
       <Footer />

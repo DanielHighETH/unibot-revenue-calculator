@@ -96,9 +96,9 @@ export default function Home() {
           onChange={e => setUnibotAmount(parseFloat(e.target.value))} 
           ></input>
 
-          <div className='overflow-auto border dark:border-zinc-700 mt-5 w-full'>
+          <div className='overflow-auto border border-zinc-700 mt-5 w-full'>
           <table className='w-full'>
-            <thead className='border-b border-zinc-200 dark:border-zinc-700'>
+            <thead className='border-b border-zinc-700'>
               <tr className='flex'>
                 <th className='flex w-1/4 items-center p-4 text-left font-semibold tracking-wide'>Timeframe</th>
                 <th className='flex w-1/4 items-center p-4 text-left font-semibold tracking-wide'>UNIBOT Revenue </th>
@@ -106,7 +106,7 @@ export default function Home() {
                 <th className='flex w-1/4 items-center p-4 text-left font-semibold tracking-wide'>USD Revenue</th>
               </tr>
             </thead>
-            <tbody className='divide-y divide-zinc-200 dark:divide-zinc-700'>
+            <tbody className='divide-y divide-zinc-700'>
   {data && (
     <>
       <tr className='flex'>
@@ -154,51 +154,51 @@ export default function Home() {
   {statistics && (
     <>
       <div className='flex flex-col md:flex-row gap-5 mt-5'>
-        <div className='flex flex-col w-full bg-zinc-100 dark:bg-zinc-800 p-5 rounded-lg'>
+        <div className='flex flex-col w-full bg-zinc-800 p-5 rounded-lg'>
           <h1 className='text-xl font-bold'>Current APY</h1>
           <p className='text-2xl font-bold'>{statistics.annualizedCombinedAPY} %</p>
         </div>
 
-        <div className='flex flex-col w-full bg-zinc-100 dark:bg-zinc-800 p-5 rounded-lg'>
+        <div className='flex flex-col w-full bg-zinc-800 p-5 rounded-lg'>
           <h1 className='text-xl font-bold'>Current APR</h1>
           <p className='text-2xl font-bold'>{statistics.annualizedCombinedAPR} %</p>
         </div>
 
-        <div className='flex flex-col w-full bg-zinc-100 dark:bg-zinc-800 p-5 rounded-lg'>
+        <div className='flex flex-col w-full bg-zinc-800 p-5 rounded-lg'>
           <h1 className='text-xl font-bold'>Daily Holder Revenue</h1>
           <p className='text-2xl font-bold'>{statistics.dailyHolderRevenue} ETH</p>
         </div>
       </div>
 
       <div className='flex flex-col md:flex-row gap-5 mt-5'>
-        <div className='flex flex-col w-full bg-zinc-100 dark:bg-zinc-800 p-5 rounded-lg'>
+        <div className='flex flex-col w-full bg-zinc-800 p-5 rounded-lg'>
           <h1 className='text-xl font-bold'>Average Daily Volume</h1>
           <p className='text-2xl font-bold'>{statistics.averageDailyVolumeUSD} $</p>
         </div>
 
-        <div className='flex flex-col w-full bg-zinc-100 dark:bg-zinc-800 p-5 rounded-lg'>
+        <div className='flex flex-col w-full bg-zinc-800 p-5 rounded-lg'>
           <h1 className='text-xl font-bold'><span className='text-unibot'>Unibot</span> Market Cap</h1>
           <p className='text-2xl font-bold'>{statistics.unibotMarketcapETH} ETH</p>
         </div>
 
-        <div className='flex flex-col w-full bg-zinc-100 dark:bg-zinc-800 p-5 rounded-lg'>
+        <div className='flex flex-col w-full bg-zinc-800 p-5 rounded-lg'>
           <h1 className='text-xl font-bold'>Total Number Of Transactions</h1>
           <p className='text-2xl font-bold'>{statistics.totalNumberOfTransactions}</p>
         </div>
       </div>
 
       <div className='flex flex-col md:flex-row gap-5 mt-5'>
-        <div className='flex flex-col w-full bg-zinc-100 dark:bg-zinc-800 p-5 rounded-lg'>
+        <div className='flex flex-col w-full bg-zinc-800 p-5 rounded-lg'>
           <h1 className='text-xl font-bold'>Ethereum Price</h1>
           <p className='text-2xl font-bold'>{statistics.ethereumPrice} $</p>
         </div>
 
-        <div className='flex flex-col w-full bg-zinc-100 dark:bg-zinc-800 p-5 rounded-lg'>
+        <div className='flex flex-col w-full bg-zinc-800 p-5 rounded-lg'>
           <h1 className='text-xl font-bold'><span className='text-unibot'>$UNIBOT</span> Price</h1>
           <p className='text-2xl font-bold'>{statistics.unibotPrice} $</p>
         </div>
 
-        <div className='flex flex-col w-full bg-zinc-100 dark:bg-zinc-800 p-5 rounded-lg'>
+        <div className='flex flex-col w-full bg-zinc-800 p-5 rounded-lg'>
           <h1 className='text-xl font-bold'>Total users</h1>
           <p className='text-2xl font-bold'>{statistics.totalNumberOfUsers}</p>
         </div>
