@@ -14,7 +14,7 @@ export async function GET() {
       cache: 'no-store',
     })
 
-    const pricesRes = await fetch(`http://localhost:3000/api/getPrice`, {
+    const pricesRes = await fetch(`/api/getPrice`, {
       cache: 'no-store',
     })
     const pricesData = await pricesRes.json()
