@@ -68,6 +68,8 @@ export default function Home() {
   useEffect(() => {
     if (unibotAmount >= 50) {
       calculateRevenue(unibotAmount).then(setData);
+    } else {
+      setData(initialData);
     }
   }, [unibotAmount]);
 
