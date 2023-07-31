@@ -37,18 +37,21 @@ interface StatisticsData {
   unibotMarketcapETH: string;
   totalNumberOfTransactions: string;
   totalNumberOfUsers: string;
+  ethereumPriceNumeral: string;
+  unibotPriceNumeral: string;
   ethereumPrice: string;
   unibotPrice: string;
 }
 
 
-const calculateRevenue = async (unibotAmount: number) => {
-  const res = await fetch(`/api/calculate/${unibotAmount}`, {
+const calculateRevenue = async (unibotAmount: number, ethereumPrice: string, unibotPrice: string) => {
+  const res = await fetch(`/api/calculate/${unibotAmount}?ethereumPrice=${ethereumPrice}&unibotPrice=${unibotPrice}`, {
     cache: 'no-store',
   });
   const { data }: ApiResponse = await res.json();
   return data;
 };
+
 
 const getData = async (): Promise<StatisticsData> => {
   const res = await fetch('/api/getData', {
@@ -66,12 +69,13 @@ export default function Home() {
   const [statistics, setStatistics] = useState<StatisticsData | null>(null);
 
   useEffect(() => {
-    if (unibotAmount >= 50) {
-      calculateRevenue(unibotAmount).then(setData);
+    if (unibotAmount >= 50 && statistics) {
+      calculateRevenue(unibotAmount, statistics.ethereumPrice, statistics.unibotPrice).then(setData);
     } else {
       setData(initialData);
     }
-  }, [unibotAmount]);
+  }, [unibotAmount, statistics]);
+
 
   useEffect(() => {
     getData().then(setStatistics);

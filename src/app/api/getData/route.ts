@@ -7,9 +7,6 @@ interface PricesData {
   ethereumPrice: number;
 }
 
-let cachedPricesData: PricesData | null = null;
-let cachedPricesTimestamp: number | null = null;
-
 async function fetchPrices(): Promise<PricesData> {
   try {
     const unibotPriceRes = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=unibot&vs_currencies=usd', {
@@ -24,33 +21,15 @@ async function fetchPrices(): Promise<PricesData> {
     const ethereumPriceData = await ethereumPriceRes.json();
     const ethereumPrice = ethereumPriceData.ethereum.usd;
 
-    const data: PricesData = {
+    return {
       unibotPrice: unibotPrice,
       ethereumPrice: ethereumPrice
     };
-
-    cachedPricesData = data;
-    cachedPricesTimestamp = new Date().getTime();
-
-    return data;
-
   } catch (error) {
     console.error(`Error: ${error}`);
     throw error;
   }
 }
-
-async function getPrices(): Promise<PricesData> {
-  const currentTime = new Date().getTime();
-  const fiveMinutes = 5 * 60 * 1000;
-  
-  if (!cachedPricesData || !cachedPricesTimestamp || (currentTime - cachedPricesTimestamp > fiveMinutes)) {
-    return await fetchPrices();
-  } else {
-    return cachedPricesData;
-  }
-}
-
 
 export async function GET() {
 
@@ -60,7 +39,7 @@ export async function GET() {
     })
     const duneData = await duneRes.json()
 
-    const pricesData = await getPrices();
+    const pricesData = await fetchPrices();
     const unibotPrice = pricesData.unibotPrice;
     const ethereumPrice = pricesData.ethereumPrice;
 
@@ -73,11 +52,11 @@ export async function GET() {
       unibotMarketcapETH: numeral(duneData.result.rows[0].unibotMarketcapETH).format('0,0.00'),
       totalNumberOfTransactions: numeral(duneData.result.rows[0].totalNumberOfTransactions).format('0,0'),
       totalNumberOfUsers: numeral(duneData.result.rows[0].totalNumberOfUsers).format('0,0'),
-      ethereumPrice: numeral(ethereumPrice).format('0,0.00'),
-      unibotPrice: numeral(unibotPrice).format('0,0.00'),
+      ethereumPriceNumeral: numeral(ethereumPrice).format('0,0.00'),
+      unibotPriceNumeral: numeral(unibotPrice).format('0,0.00'),
+      unibotPrice: unibotPrice,
+      ethereumPrice: ethereumPrice,
     }
-    
-
 
     return NextResponse.json({ data })
   } catch (error) {
