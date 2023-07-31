@@ -14,12 +14,14 @@ async function fetchPrices(): Promise<PricesData> {
     });
     const unibotPriceData = await unibotPriceRes.json();
     const unibotPrice = unibotPriceData.unibot.usd;
+    console.log(unibotPrice)
 
     const ethereumPriceRes = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd', {
       cache: 'no-store',
     });
     const ethereumPriceData = await ethereumPriceRes.json();
     const ethereumPrice = ethereumPriceData.ethereum.usd;
+    console.log(ethereumPrice)
 
     return {
       unibotPrice: unibotPrice,
@@ -42,6 +44,8 @@ export async function GET() {
     const pricesData = await fetchPrices();
     const unibotPrice = pricesData.unibotPrice;
     const ethereumPrice = pricesData.ethereumPrice;
+
+    console.log(unibotPrice + " eth: " + ethereumPrice)
 
 
     const data = {

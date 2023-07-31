@@ -196,12 +196,12 @@ export default function Home() {
       <div className='flex flex-col md:flex-row gap-5 mt-5'>
         <div className='flex flex-col w-full bg-zinc-800 p-5 rounded-lg'>
           <h1 className='text-xl font-bold'>Ethereum Price</h1>
-          <p className='text-2xl font-bold'>{statistics.ethereumPrice} $</p>
+          <p className='text-2xl font-bold'>{statistics.ethereumPriceNumeral} $</p>
         </div>
 
         <div className='flex flex-col w-full bg-zinc-800 p-5 rounded-lg'>
           <h1 className='text-xl font-bold'><span className='text-unibot'>$UNIBOT</span> Price</h1>
-          <p className='text-2xl font-bold'>{statistics.unibotPrice} $</p>
+          <p className='text-2xl font-bold'>{statistics.unibotPriceNumeral} $</p>
         </div>
 
         <div className='flex flex-col w-full bg-zinc-800 p-5 rounded-lg'>
