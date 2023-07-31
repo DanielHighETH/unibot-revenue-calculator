@@ -10,14 +10,12 @@ interface PricesData {
 async function fetchPrices(): Promise<PricesData> {
   try {
     const unibotPriceRes = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=unibot&vs_currencies=usd&time=${Date.now()}`, {
-      cache: 'no-store',
       next: { revalidate: 0 }
     });    
     const unibotPriceData = await unibotPriceRes.json();
     const unibotPrice = unibotPriceData.unibot.usd;
 
     const ethereumPriceRes = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd&time=${Date.now()}`, {
-      cache: 'no-store',
       next: { revalidate: 0 }
     });
     const ethereumPriceData = await ethereumPriceRes.json();
@@ -37,7 +35,6 @@ export async function GET() {
 
   try {
     const duneRes = await fetch(`https://api.dune.com/api/v1/query/2636251/results?api_key=${process.env.DUNE_API_KEY}&time=${Date.now()}`, {
-      cache: 'no-store',
       next: { revalidate: 0 }
     })
     const duneData = await duneRes.json()

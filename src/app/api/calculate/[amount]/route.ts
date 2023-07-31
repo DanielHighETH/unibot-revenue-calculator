@@ -10,8 +10,7 @@ export async function GET(request: Request) {
   const unibotPrice = Number(params.get('unibotPrice'));
   const ethereumPrice = Number(params.get('ethereumPrice'));
 
-  const duneRes = await fetch(`https://api.dune.com/api/v1/query/2636251/results?api_key=${process.env.DUNE_API_KEY}`, {
-    cache: 'no-store',
+  const duneRes = await fetch(`https://api.dune.com/api/v1/query/2636251/results?api_key=${process.env.DUNE_API_KEY}&time=${Date.now()}`, {
     next: { revalidate: 0 }
  } )
   const duneData = await duneRes.json()
