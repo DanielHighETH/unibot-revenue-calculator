@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server'
 import numeral from 'numeral';
 require('dotenv').config()
+export const revalidate = 0;
+
 
 interface PricesData {
   unibotPrice: number;
@@ -18,6 +20,7 @@ async function fetchPrices(): Promise<PricesData> {
     const ethereumPriceRes = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd&time=${Date.now()}`, {
       next: { revalidate: 0 }
     });
+
     const ethereumPriceData = await ethereumPriceRes.json();
     const ethereumPrice = ethereumPriceData.ethereum.usd;
 

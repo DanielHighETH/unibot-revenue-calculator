@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react';
+export const revalidate = 0;
 
 
 interface Calculation {
