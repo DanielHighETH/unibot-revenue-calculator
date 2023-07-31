@@ -47,6 +47,7 @@ interface StatisticsData {
 const calculateRevenue = async (unibotAmount: number, ethereumPrice: string, unibotPrice: string) => {
   const res = await fetch(`/api/calculate/${unibotAmount}?ethereumPrice=${ethereumPrice}&unibotPrice=${unibotPrice}`, {
     cache: 'no-store',
+    next: { revalidate: 0 }
   });
   const { data }: ApiResponse = await res.json();
   return data;
@@ -56,6 +57,7 @@ const calculateRevenue = async (unibotAmount: number, ethereumPrice: string, uni
 const getData = async (): Promise<StatisticsData> => {
   const res = await fetch('/api/getData', {
     cache: 'no-store',
+    next: { revalidate: 0 }
   });
   const { data }: { data: StatisticsData } = await res.json();
   return data;

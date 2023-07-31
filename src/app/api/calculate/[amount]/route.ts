@@ -12,8 +12,10 @@ export async function GET(request: Request) {
 
   const duneRes = await fetch(`https://api.dune.com/api/v1/query/2636251/results?api_key=${process.env.DUNE_API_KEY}`, {
     cache: 'no-store',
-  } )
+    next: { revalidate: 0 }
+ } )
   const duneData = await duneRes.json()
+
   const annualizedCombinedAPY = duneData.result.rows[0].annualizedCombinedAPY
 
   const hourlyCalculation = ((annualizedCombinedAPY / 100) * amount * unibotPrice) / 8760
