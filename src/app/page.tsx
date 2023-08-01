@@ -70,7 +70,7 @@ export default function Home() {
   const [statistics, setStatistics] = useState<StatisticsData | null>(null);
 
   useEffect(() => {
-    if (unibotAmount >= 50 && statistics) {
+    if (unibotAmount >= 10 && statistics) {
       calculateRevenue(unibotAmount, statistics.ethereumPrice, statistics.unibotPrice).then(setData);
     } else {
       setData(initialData);
