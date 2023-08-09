@@ -184,8 +184,8 @@ export default function Home() {
         </div>
 
         <div className='flex flex-col w-full bg-zinc-800 p-5 rounded-lg'>
-          <h1 className='text-xl font-bold'><span className='text-unibot'>Unibot</span> Market Cap</h1>
-          <p className='text-2xl font-bold'>{statistics.unibotMarketcapETH} ETH</p>
+          <h1 className='text-xl font-bold'><span className='text-unibot'>UNIBOT</span> Market Cap</h1>
+          <p className='text-2xl font-bold'>{statistics.unibotMarketcapETH} $</p>
         </div>
 
         <div className='flex flex-col w-full bg-zinc-800 p-5 rounded-lg'>

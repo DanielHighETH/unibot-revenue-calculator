@@ -42,8 +42,14 @@ export async function GET() {
     })
     const duneData = await duneRes.json()
 
+    const duneRes2 = await fetch(`https://api.dune.com/api/v1/query/2656557/results?api_key=${process.env.DUNE_API_KEY}&time=${Date.now()}`, {
+      next: { revalidate: 0 }
+    })
+    const duneData2 = await duneRes2.json()
+
     const pricesData = await fetchPrices();
-    const unibotPrice = pricesData.unibotPrice;
+    //const unibotPrice = pricesData.unibotPrice;
+    const unibotPrice = duneData2.result.rows[0].closePriceUSD;
     const ethereumPrice = pricesData.ethereumPrice;
 
     const data = {
@@ -51,7 +57,7 @@ export async function GET() {
       annualizedCombinedAPR: numeral(duneData.result.rows[0].annualizedCombinedAPR).format('0,0.00'),
       dailyHolderRevenue: numeral(duneData.result.rows[0].combinedHolderRevenue24hETH).format('0,0.00'),
       averageDailyVolumeUSD: numeral(duneData.result.rows[0].averageDailyVolumeUSD).format('0,0.00'),
-      unibotMarketcapETH: numeral(duneData.result.rows[0].unibotMarketcapETH).format('0,0.00'),
+      unibotMarketcapETH: numeral(duneData2.result.rows[0].mcapUSD ).format('0,0.00'),
       totalNumberOfTransactions: numeral(duneData.result.rows[0].totalNumberOfTransactions).format('0,0'),
       totalNumberOfUsers: numeral(duneData.result.rows[0].totalNumberOfUsers).format('0,0'),
       ethereumPriceNumeral: numeral(ethereumPrice).format('0,0.00'),
