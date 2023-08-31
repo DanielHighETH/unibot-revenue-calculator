@@ -120,7 +120,7 @@ export default function Home() {
         <td className='flex w-1/4 flex-wrap items-center gap-x-4 p-4'>Hourly</td>
         <td className='flex w-1/4 flex-wrap items-center gap-x-4 p-4'>{data.hourlyCalculation.unibot} <span className='text-unibot font-bold'>$UNIBOT</span></td>
         <td className='flex w-1/4 flex-wrap items-center gap-x-4 p-4'>{data.hourlyCalculation.eth} <span className='text-unibot font-bold'>ETH</span></td>
-        <td className='flex w-1/4 flex-wrap items-center gap-x-4 p-4'>{data.hourlyCalculation.unibot}<span className='text-unibot font-bold'>$</span></td>
+        <td className='flex w-1/4 flex-wrap items-center gap-x-4 p-4'>{data.hourlyCalculation.usd}<span className='text-unibot font-bold'>$</span></td>
       </tr>
       <tr className='flex'>
         <td className='flex w-1/4 flex-wrap items-center gap-x-4 p-4'>Daily</td>
