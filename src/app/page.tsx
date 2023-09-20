@@ -78,9 +78,9 @@ export default function Home() {
   }, [unibotAmount, statistics]);
 
 
-  useEffect(() => {
-    getData().then(setStatistics);
-  }, []);
+    useEffect(() => {
+      getData().then(setStatistics);
+    }, []);
 
   return (
     <div className='mt-10 flex-grow'>

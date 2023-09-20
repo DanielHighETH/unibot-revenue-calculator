@@ -5,18 +5,11 @@ export const revalidate = 0;
 
 
 interface PricesData {
-  unibotPrice: number;
   ethereumPrice: number;
 }
 
 async function fetchPrices(): Promise<PricesData> {
   try {
-    const unibotPriceRes = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=unibot&vs_currencies=usd&time=${Date.now()}`, {
-      next: { revalidate: 0 }
-    });    
-    const unibotPriceData = await unibotPriceRes.json();
-    const unibotPrice = unibotPriceData.unibot.usd;
-
     const ethereumPriceRes = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd&time=${Date.now()}`, {
       next: { revalidate: 0 }
     });
@@ -25,7 +18,6 @@ async function fetchPrices(): Promise<PricesData> {
     const ethereumPrice = ethereumPriceData.ethereum.usd;
 
     return {
-      unibotPrice: unibotPrice,
       ethereumPrice: ethereumPrice
     };
   } catch (error) {
@@ -34,7 +26,9 @@ async function fetchPrices(): Promise<PricesData> {
   }
 }
 
-export async function GET() {
+export async function GET(request: Request) {
+  const params = new URLSearchParams(request.url.slice(request.url.indexOf('?')))
+  const prediction = Number(params.get('prediction'));
 
   try {
     const duneRes = await fetch(`https://api.dune.com/api/v1/query/2636251/results?api_key=${process.env.DUNE_API_KEY}&time=${Date.now()}`, {
@@ -66,7 +60,26 @@ export async function GET() {
       ethereumPrice: ethereumPrice,
     }
 
-    return NextResponse.json({ data })
+    if(prediction === 1) { 
+      const data = {
+        annualizedCombinedAPY: duneData.result.rows[0].annualizedCombinedAPY,
+        annualizedCombinedAPR: duneData.result.rows[0].annualizedCombinedAPR,
+        botFees24hETH: duneData.result.rows[0].botFees24hETH,
+        botFeesHolderRevenue24hETH: duneData.result.rows[0].botFeesHolderRevenue24hETH,
+        botFeesHolderRevenue30dETH: duneData.result.rows[0].botFeesHolderRevenue30dETH,
+        revShareRevenue24hETH: duneData.result.rows[0].revShareRevenue24hETH,
+        revShareRevenue30dETH: duneData.result.rows[0].revShareRevenue30dETH,
+        unibotMarketcapEligibleForRevshareETH: duneData.result.rows[0].unibotMarketcapEligibleForRevshareETH,
+        unibotPrice: unibotPrice,
+        ethereumPrice: ethereumPrice,
+        ethereumPriceNumeral: numeral(ethereumPrice).format('0,0.00'),
+        unibotPriceNumeral: numeral(unibotPrice).format('0,0.00'),
+      }
+
+      return NextResponse.json({ data })
+    } else {
+      return NextResponse.json({ data })
+    }
   } catch (error) {
     console.error('Error fetching data:', error);
     return NextResponse.error() 

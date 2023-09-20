@@ -6,6 +6,7 @@
   --foreground-rgb: 255, 255, 255;
   --background-start-rgb: 0, 0, 0;
   --background-end-rgb: 0, 0, 0;
+  --unibot-color: #b84fcf;
 }
 
 input[type="number"]::-webkit-inner-spin-button, 
@@ -17,6 +18,52 @@ input[type="number"]::-webkit-outer-spin-button {
 input[type="number"] { 
   -moz-appearance:textfield; /* Firefox */
 }
+
+/* Unibot slider */
+input[type="range"]::-moz-range-thumb {
+  background-color: var(--unibot-color);
+  border-radius: 0.5rem;
+  height: 1rem;
+  width: 1rem;
+}
+
+input[type="range"]:focus::-webkit-slider-thumb {
+  outline: 3px solid var(--unibot-color);
+  outline-offset: 0.125rem;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: var(--unibot-color);
+  border-radius: 0.5rem;
+  height: 1rem;
+  width: 1rem;
+}
+
+input[type="range"]:focus::-moz-range-thumb{
+  outline: 3px solid var(--unibot-color);
+  outline-offset: 0.125rem;
+}
+
+
+.eth-input::after {
+  content: 'ETH';
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-weight: bold;
+  font-size: 1.25rem; /* equivalent to text-xl */
+  pointer-events: none; /* Ensure it doesn't interfere with user interactions */
+}
+
+.eth-input {
+  padding-right: 40px; /* Adjust this as needed to give space for "ETH" */
+}
+
+
+
 
 
 @media (prefers-color-scheme: dark) {
@@ -36,3 +83,4 @@ body {
     )
     rgb(var(--background-start-rgb)); 
 }
+
