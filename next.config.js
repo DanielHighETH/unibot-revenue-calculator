@@ -8,7 +8,7 @@ const nextConfig = {
 module.exports = {
     ...nextConfig,
     async redirects() {
-        if (process.env.NODE_ENV !== 'development') {
+        if (process.env.NODE_ENV !== 'development' || process.env.NODE_ENV !== 'production') {
             return [
                 {
                     source: '/',
@@ -21,7 +21,7 @@ module.exports = {
                     permanent: true,
                 },
             ];
-        }
+        } 
         return [];
     }
 }
