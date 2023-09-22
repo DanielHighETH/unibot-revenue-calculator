@@ -1,5 +1,15 @@
-export default function About() {
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation'
 
+
+export default function About() {
+    
+    const router = useRouter();
+
+    useEffect(() => {
+      if (typeof window !== 'undefined' && window.location.host !== 'unibot-revenue-calculator.com') {
+        router.push('https://unibot-revenue-calculator.com/about');}
+    }, []);
     return (
         <div className='mt-10 flex-grow'>
             <h1 className='text-4xl uppercase font-bold'>About the <span className='text-unibot'>Unibot</span> Revenue Calculator</h1>

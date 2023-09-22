@@ -1,6 +1,9 @@
 'use client'
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation'
+
+
 export const revalidate = 0;
 
 
@@ -63,11 +66,17 @@ const getData = async (): Promise<StatisticsData> => {
 };
 
 
-
 export default function Home() {
+  const router = useRouter();
+  
   const [unibotAmount, setUnibotAmount] = useState<number>(0);
   const [data, setData] = useState<ApiData>(initialData);
   const [statistics, setStatistics] = useState<StatisticsData | null>(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.location.host !== 'unibot-revenue-calculator.com') {
+      router.push('https://unibot-revenue-calculator.com/');}
+  }, []);
 
   useEffect(() => {
     if (unibotAmount >= 10 && statistics) {
